@@ -1,12 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    EC2_USER: "ec2-user"
-  parameter-store:
-    EC2_IP: "/poc/ec2_ip"
-    SSH_KEY: "/poc/ssh_key"
-
 phases:
   install:
     runtime-versions:
@@ -26,6 +19,6 @@ phases:
       - chmod 600 ~/.ssh/id_rsa
       - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
       - echo Deploying application files directly to EC2...
-      - rsync -avz --exclude '.git' --exclude 'node_modules' ./ $EC2_USER@$EC2_IP:/home/ec2-user/app/
+      - rsync -avz --exclude '.git' --exclude 'node_modules' ./ ec2-user@$EC2_IP:/home/ec2-user/app/
       - echo Starting application via SSH...
-      - ssh $EC2_USER@$EC2_IP "cd /home/ec2-user/app && npm install && sudo npm install pm2 -g && (pm2 delete node-app || true) && pm2 start app.js --name 'node-app'"
+      - ssh ec2-user@$EC2_IP "cd /home/ec2-user/app && npm install && sudo npm install pm2 -g && (pm2 delete node-app || true) && pm2 start app.js --name 'node-app'"
