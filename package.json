@@ -1,0 +1,13 @@
+{
+  "name": "node-aws-poc",
+  "version": "1.0.0",
+  "description": "Node.js POC for AWS CI/CD",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Running tests...\" && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
